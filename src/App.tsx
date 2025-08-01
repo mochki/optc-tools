@@ -89,58 +89,71 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {window.units.map((_, idx: number) => {
-            const id = idx + 1;
-            const paddedId = id.toString().padStart(4, "0");
+          {window.units
+            // .filter((unit) =>
+            //   filter ? new RegExp(filter, "i").test(unit[0]) : true
+            // )
+            .map((_, idx: number) => {
+              const id = idx + 1;
+              const paddedId = id.toString().padStart(4, "0");
 
-            const evo = window.evolutions[id]
-              ? [window.evolutions[id].evolution].flat()
-              : [];
+              const evo = window.evolutions[id]
+                ? [window.evolutions[id].evolution].flat()
+                : [];
 
-            return (
-              <tr>
-                <td>{paddedId}</td>
-                <td>{id < 5000 ? <img src={thumbnails[paddedId]} /> : null}</td>
-                <td>
-                  <input
-                    type="checkbox"
-                    checked={!!log[id]}
-                    style={{ height: 75, width: 75 }}
-                    onClick={() => {
-                      const updated = [...log];
-                      updated[id] = !log[id];
-                      setLog(updated);
-                    }}
-                  />
-                </td>
-                <td style={{ display: "flex" }}>
-                  {evo.map((_) => (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        opacity: log[_] ? 0.3 : 1,
+              return (
+                <tr
+                  style={{
+                    display:
+                      filter && !new RegExp(filter, "i").test(_[0])
+                        ? "none"
+                        : "table-row",
+                  }}
+                >
+                  <td>{paddedId}</td>
+                  <td>
+                    {id < 5000 ? <img src={thumbnails[paddedId]} /> : null}
+                  </td>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={!!log[id]}
+                      style={{ height: 75, width: 75 }}
+                      onClick={() => {
+                        const updated = [...log];
+                        updated[id] = !log[id];
+                        setLog(updated);
                       }}
-                    >
-                      <img
-                        src={thumbnails[_.toString().padStart(4, "0")]}
-                        width={60}
-                      />
-                      <span>{_.toString().padStart(4, "0")}</span>
-                    </div>
+                    />
+                  </td>
+                  <td style={{ display: "flex" }}>
+                    {evo.map((_) => (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          opacity: log[_] ? 0.3 : 1,
+                        }}
+                      >
+                        <img
+                          src={thumbnails[_.toString().padStart(4, "0")]}
+                          width={60}
+                        />
+                        <span>{_.toString().padStart(4, "0")}</span>
+                      </div>
+                    ))}
+                  </td>
+                  {_.filter(
+                    (___, colId) =>
+                      ![1, 2, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15].includes(
+                        colId
+                      )
+                  ).map((__) => (
+                    <td>{__}</td>
                   ))}
-                </td>
-                {_.filter(
-                  (___, colId) =>
-                    ![1, 2, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15].includes(
-                      colId
-                    )
-                ).map((__) => (
-                  <td>{__}</td>
-                ))}
-              </tr>
-            );
-          })}
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </>
