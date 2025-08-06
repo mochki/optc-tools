@@ -76,14 +76,14 @@ function App() {
             <th>*evolution</th>
             {/* <th>recruitable</th> */}
 
-            <th>Name</th>
+            {/* <th>Name</th> */}
             {/* <th>Type</th> */}
             {/* <th>Class</th> */}
-            <th>Stars</th>
+            {/* <th>Stars</th> */}
             {/* <th>Cost</th> */}
             {/* <th>Combo</th> */}
             {/* <th>Sockets</th> */}
-            <th>maxLVL</th>
+            {/* <th>maxLVL</th> */}
             {/* <th>EXPToMax</th> */}
             {/* <th>lvl1HP</th> */}
             {/* <th>lvl1ATK</th> */}
@@ -147,9 +147,10 @@ function App() {
                 </td>
                 {_.filter(
                   (___, colId) =>
-                    ![1, 2, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15].includes(
-                      colId
-                    )
+                    ![
+                      1, 2, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 1, 1, 1, 1,
+                      0, 3, 7,
+                    ].includes(colId)
                 ).map((__) => (
                   <td>{__}</td>
                 ))}
